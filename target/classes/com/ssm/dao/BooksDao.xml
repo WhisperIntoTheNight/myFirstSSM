@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssm.dao.BooksDao">
+    <resultMap id="booksDaoMap" type="com.ssm.pojo.Books">
+        <id property="bookId" column="book_id"/>
+        <result property="bookName" column="book_name"/>
+        <result property="price" column="price"/>
+        <result property="description" column="description"/>
+    </resultMap>
+
+
+    <select id="findAllBooks" resultMap="booksDaoMap">
+        select * from mybook
+    </select>
+
+    <select id="findOneBookById" parameterType="int" resultMap="booksDaoMap">
+        select
+            *
+        from
+            mybook
+        by
+            book_id=#{bookId}
+    </select>
+
+    <insert id="addOneBook" parameterType="Books">
+        insert into
+            mybook
+            (book_id, book_name, price, description)
+        values
+            (#{bookId}, #{bookName}, #{price}, #{description})
+
+    </insert>
+
+    <update id="updateOneBook" parameterType="Books">
+        update
+            mybook
+        set
+            book_name=#{bookName},
+            price=#{price},
+            description=#{description},
+        where
+            book_id=#{bookId}
+
+    </update>
+
+    <delete id="deleteOneBookById" parameterType="int">
+        delete from
+            mybook
+        where
+            book_id=#{bookId}
+    </delete>
+</mapper>
