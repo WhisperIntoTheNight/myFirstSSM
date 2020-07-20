@@ -11,16 +11,31 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- 1.注解驱动 -->
+    <!--声明controller和其他web相关的对象-->
+    <!-- 1.注解驱动
+    完成java对象到json、xml、text、二进制等数据格式的转换
+    HttpMessageConvert接口，8个实现类
+    比如，MappingJackson2HttpMessageConvert实现了java对象转换为JSON数据
+
+    配合在controller层方法上面加注解@ResponseBody
+
+    作用：
+    1.响应ajax请求，返回json
+    2.解决静态资源访问问题
+     -->
     <mvc:annotation-driven/>
 
-    <!-- 2.静态资源过滤 -->
+    <!-- 2.可以访问静态资源 -->
     <mvc:default-servlet-handler/>
     
     <!-- 3.扫描包：controller-->
-<!--    <context:component-scan base-package="com.ssm.controller"/>-->
+    <context:component-scan base-package="com.ssm.controller"/>
 
-    <!-- 4.视图解析器 -->
+    <!-- 4.视图解析器
+     配置之后就可以直接使用逻辑名称
+     prefix是前缀，视图文件的路径
+     suffix是后缀，视图文件的.扩展名
+     -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>

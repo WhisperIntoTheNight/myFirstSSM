@@ -1,9 +1,8 @@
 package com.ssm.service.impl;
 
 import com.ssm.dao.BooksDao;
-import com.ssm.pojo.Books;
+import com.ssm.pojo.Book;
 import com.ssm.service.BooksService;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,27 +20,27 @@ public class BooksServiceImpl implements BooksService {
     private BooksDao booksDao;
 
     @Override
-    public List<Books> findAllBooks() {
-        return booksDao.findAllBooks();
+    public List<Book> queryAllBooks() {
+        return booksDao.selectAllBooks();
     }
 
     @Override
-    public Books findOneBookById(int bookId) {
-        return booksDao.findOneBookById(bookId);
+    public Book queryOneBookById(int bookId) {
+        return booksDao.selectOneBookById(bookId);
     }
 
     @Override
-    public boolean addOneBook(Books books) {
-        return booksDao.addOneBook(books);
+    public boolean addOneBook(Book book) {
+        return booksDao.insertOneBook(book);
     }
 
     @Override
-    public boolean updateOneBook(Books books) {
-        return booksDao.updateOneBook(books);
+    public boolean modifyOneBook(Book book) {
+        return booksDao.updateOneBook(book);
     }
 
     @Override
-    public boolean deleteOneBookById(int bookId) {
+    public boolean removeOneBookById(int bookId) {
         return booksDao.deleteOneBookById(bookId);
     }
 }

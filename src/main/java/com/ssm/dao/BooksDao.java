@@ -1,6 +1,6 @@
 package com.ssm.dao;
 
-import com.ssm.pojo.Books;
+import com.ssm.pojo.Book;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,13 +15,13 @@ public interface BooksDao {
     /**
      * @author wangxixi
      */
-    List<Books> findAllBooks();
+    List<Book> selectAllBooks();
 
-    Books findOneBookById(int bookId);
+    Book selectOneBookById(int bookId);
 
-    boolean addOneBook(Books books);
+    boolean insertOneBook(Book books);
 
-    boolean updateOneBook(Books books);
+    boolean updateOneBook(Book books);
 
     /**
      * 括号中的是传参时候的别名字段，int后的是pojo中的字段

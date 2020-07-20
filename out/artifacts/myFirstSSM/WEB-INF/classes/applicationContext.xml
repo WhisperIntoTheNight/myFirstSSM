@@ -8,38 +8,48 @@
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- 1.关联数据库配置文件 -->
+    <!--  spring配置文件：声明service、dao、工具类等对象  -->
+
+    <!--  声明数据源，连接数据库  -->
+    <!--  1.关联数据库配置文件 -->
     <context:property-placeholder location="classpath:database.properties"/>
 
-    <!--    2.连接池
+    <!--  2.连接池
             dbcp:半自动化操作，不能自动连接
             c3p0：自动化操作（自动加载配置文件）
-            druid
+            druid：properties文件不用配driver，会自动识别
             hikari
             -->
-    <bean id="datasource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="${jdbc.driver}"/>
         <property name="jdbcUrl" value="${jdbc.url}"/>
         <property name="user" value="${jdbc.username}"/>
         <property name="password" value="${jdbc.password}"/>
     </bean>
-    <!-- 3.sqlSessionFactory -->
+
+    <!--  3.sqlSessionFactoryBean创建sqlSessionFactory -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="datasource"/>
-        <!-- 绑定MyBatis的配置文件 -->
+        <!--  绑定连接池  -->
+        <property name="dataSource" ref="dataSource"/>
+        <!--  绑定MyBatis的配置文件 -->
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
     </bean>
-    <!-- 4.sqlSessionFactory-->
-    <context:component-scan base-package="com.ssm.dao"/>
-    <!-- 配置dao接口扫描包，动态实现了Dao接口可以注入到Spring容器中！-->
+
+    <!--  4.声明MyBatis的扫描器配置dao接口扫描包，
+            动态实现了Dao接口可以注入到Spring容器中！-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 注入sqlSessionFactory  -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!-- 要扫描的dao包  -->
         <property name="basePackage" value="com.ssm.dao"/>
-
     </bean>
 
+    <!--  声明service的注解@Service所在包名的位置 -->
+    <context:component-scan base-package="com.ssm.service"/>
+
+    <!--  事务配置：注解的配置，aspectJ的配置(二选一，后面加，主要是先实现业务逻辑)  -->
+    <!--  声明式事务提交  -->
+<!--    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
+<!--        <property name="dataSource" ref="dataSource"/>-->
+<!--    </bean>-->
 </beans>
-
-

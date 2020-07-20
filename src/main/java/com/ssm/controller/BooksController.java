@@ -1,10 +1,8 @@
 package com.ssm.controller;
 
-import com.ssm.pojo.Books;
+import com.ssm.pojo.Book;
 import com.ssm.service.BooksService;
-import com.ssm.service.impl.BooksServiceImpl;
 import org.springframework.ui.Model;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -17,7 +15,7 @@ import java.util.List;
  * @author 10216
  */
 @Controller
-@RequestMapping("/book")
+@RequestMapping("book")
 public class BooksController {
     // controller就调用service层
 
@@ -28,10 +26,9 @@ public class BooksController {
 //    查询全部的书籍，并且放回到一个书籍的展示
     @GetMapping("/allBook")
     public String list(Model model){
-        List<Books> books = booksService.findAllBooks();
+        List<Book> books = booksService.queryAllBooks();
+        System.out.println(books);
         model.addAttribute("list", books);
         return "allBook";
     }
-
-
 }

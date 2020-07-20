@@ -1,7 +1,7 @@
 package com.ssm.service;
 
 import com.ssm.dao.BooksDao;
-import com.ssm.pojo.Books;
+import com.ssm.pojo.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,19 +11,20 @@ public interface BooksService {
 
     /**
      * @author wangxixi
+     * @return List<book>
      */
-    List<Books> findAllBooks();
+    List<Book> queryAllBooks();
 
-    Books findOneBookById(int bookId);
+    Book queryOneBookById(int bookId);
 
-    boolean addOneBook(Books books);
+    boolean addOneBook(Book books);
 
-    boolean updateOneBook(Books books);
+    boolean modifyOneBook(Book books);
 
     /**
      * 括号中的是传参时候的别名字段，int后的是pojo中的字段
      *
      * */
-    boolean deleteOneBookById(int bookId);
+    boolean removeOneBookById(int bookId);
 
 }

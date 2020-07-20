@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ssm.dao.BooksDao">
-    <resultMap id="booksDaoMap" type="com.ssm.pojo.Books">
+    <resultMap id="booksDaoMap" type="com.ssm.pojo.Book">
         <id property="bookId" column="book_id"/>
         <result property="bookName" column="book_name"/>
         <result property="price" column="price"/>
@@ -10,29 +10,29 @@
     </resultMap>
 
 
-    <select id="findAllBooks" resultMap="booksDaoMap">
-        select * from mybook
+    <select id="selectAllBooks" resultMap="booksDaoMap">
+        select book_id, book_name, price, description from mybook
     </select>
 
-    <select id="findOneBookById" parameterType="int" resultMap="booksDaoMap">
+    <select id="selectOneBookById" parameterType="int" resultMap="booksDaoMap">
         select
-            *
+            book_id, book_name, price, description
         from
             mybook
         by
             book_id=#{bookId}
     </select>
 
-    <insert id="addOneBook" parameterType="Books">
+    <insert id="insertOneBook" parameterType="Book">
         insert into
             mybook
-            (book_id, book_name, price, description)
+            (book_name, price, description)
         values
-            (#{bookId}, #{bookName}, #{price}, #{description})
+            (#{bookName}, #{price}, #{description})
 
     </insert>
 
-    <update id="updateOneBook" parameterType="Books">
+    <update id="updateOneBook" parameterType="Book">
         update
             mybook
         set

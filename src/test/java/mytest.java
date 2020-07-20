@@ -1,4 +1,4 @@
-import com.ssm.pojo.Books;
+import com.ssm.pojo.Book;
 import com.ssm.service.BooksService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -9,7 +9,7 @@ public class mytest {
     public void test() {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         BooksService booksServiceImpl = (BooksService) context.getBean("BooksServiceImpl");
-        for (Books books : booksServiceImpl.findAllBooks()) {
+        for (Book books : booksServiceImpl.queryAllBooks()) {
             System.out.println(books);
         }
     }
